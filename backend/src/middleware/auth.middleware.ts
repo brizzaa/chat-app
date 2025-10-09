@@ -7,12 +7,12 @@ type DecodedToken = JwtPayload & {
 };
 
 export const protectRoute = async (
-  req: Request & { cookies: { jwt?: string } },
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.cookies?.jwt;
     if (!token) {
       return res.status(401).json({
         message: "non autorizzato - token mancante.",

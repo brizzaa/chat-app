@@ -103,17 +103,17 @@ export const logout = (req: Request, res: Response) => {
   }
 };
 
-// estendo la richiesta
-type AuthRequest = Request & {
-  user: {
-    _id: string;
-  };
-};
-
-export const updateProfile = async (req: AuthRequest, res: Response) => {
+export const updateProfile = async (req: Request, res: Response) => {
   try {
     const { profilePic } = req.body;
-    const userId = req.user._id;
+
+    const userId = req.user?._id;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: "utente non autorizzato",
+      });
+    }
     if (!profilePic) {
       return res.status(400).json({
         message: "immagine del profilo è obbligatorio",
@@ -130,6 +130,17 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
       { new: true }
     );
     res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("errore nel server" + error);
+    res.status(500).json({
+      message: "errore server",
+    });
+  }
+};
+
+export const checkAuth = (req: Request, res: Response) => {
+  try {
+    res.status(200).json(req.user);
   } catch (error) {
     console.error(error);
     res.status(500).json({
