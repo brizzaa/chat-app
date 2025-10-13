@@ -16,6 +16,8 @@ interface AuthState {
   login: (data: any) => Promise<void>;
   logout: () => void;
   updateProfile: (data: any) => Promise<void>;
+  onlineUsers: string[];
+  setOnlineUsers: (onlineUsers: string[]) => void;
 }
 
 // implemento interface e creo lo store per i componenti
@@ -89,6 +91,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ isUpdatingProfile: false });
     }
   },
+  onlineUsers: [],
+  setOnlineUsers: (onlineUsers: string[]) => set({ onlineUsers }),
 }));
 
 export default useAuthStore;

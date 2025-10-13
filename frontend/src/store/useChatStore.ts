@@ -11,9 +11,10 @@ interface ChatStore {
   isMessagesLoading: boolean;
   getUsers: () => Promise<void>;
   getMessages: (userId: string) => Promise<void>;
+  setSelectedUser: (selectedUser: any) => void;
 }
 
-export const useChatStore = create<ChatStore>((set) => ({
+export const useChatStore = create<ChatStore>((set, get) => ({
   messages: [],
   users: [],
   selectedUser: null,
@@ -23,7 +24,7 @@ export const useChatStore = create<ChatStore>((set) => ({
   getUsers: async () => {
     set({ isUsersLoading: true });
     try {
-      const res = await axiosInstance.get("/messages/users");
+      const res = await axiosInstance.get("/message/users");
       set({ users: res.data });
     } catch (error) {
       toast.error("Errore durante il recupero degli utenti, ritenta");
@@ -35,11 +36,26 @@ export const useChatStore = create<ChatStore>((set) => ({
   getMessages: async (userId: string) => {
     set({ isMessagesLoading: true });
     try {
-      const res = await axiosInstance.get(`/messages/${userId}`);
+      const res = await axiosInstance.get(`/message/${userId}`);
       set({ messages: res.data });
     } catch (error) {
     } finally {
       set({ isMessagesLoading: false });
     }
   },
+
+  sendMessage: async (data: any) => {
+    const { selectedUser, messages } = get();
+    try {
+      const res = await axiosInstance.post(
+        `/messages/send/${selectedUser._id}`,
+        data
+      );
+      set({ messages: [...messages, res.data] });
+    } catch (error) {
+      toast.error("Errore durante l'invio del messaggio");
+    }
+  },
+
+  setSelectedUser: (selectedUser) => set({ selectedUser }),
 }));
