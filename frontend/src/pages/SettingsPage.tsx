@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export const SettingsPage = () => {
   const themes = [
     "light",
@@ -39,6 +41,12 @@ export const SettingsPage = () => {
     localStorage.setItem("theme", themeName);
   };
 
+  // Carica il tema salvato all'avvio
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
   const ThemePreview = ({ themeName }: { themeName: string }) => {
     return (
       <div
@@ -62,12 +70,27 @@ export const SettingsPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8 mt-[4rem]">
       <h1 className="text-2xl font-bold mb-4">Impostazioni</h1>
 
       <div className="card bg-base-200 shadow-xl">
         <div className="card-body">
           <h2 className="card-title">Tema</h2>
+
+          <div className="mb-4">
+            <div className="chat chat-start">
+              <div className="chat-bubble">
+                E' finita Anakin,
+                <br />
+                Sono più in alto di te!
+              </div>
+            </div>
+            <div className="chat chat-end">
+              <div className="chat-bubble bg-primary text-primary-content">
+                Sottovaluti il mio potere!
+              </div>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {themes.map((theme) => (

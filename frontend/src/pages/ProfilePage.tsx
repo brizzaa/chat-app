@@ -81,7 +81,7 @@ const ProfilePage = () => {
             <h2 className="text-lg font-medium mb-4">
               Informazioni dell'account{" "}
             </h2>
-            <div className="flex items-center justify-between py-2 border-b border-zinc-700">
+            <div className="flex items-center justify-between py-2 border-b border-zinc-700 ">
               <span>Membro dal</span>
               <span>{authUser.createdAt?.split("T")[0]}</span>
             </div>

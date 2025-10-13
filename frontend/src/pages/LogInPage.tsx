@@ -97,7 +97,7 @@ const LogInPage = () => {
                   Caricamento..
                 </>
               ) : (
-                "Sign in"
+                "Accedi"
               )}
             </button>
           </form>
@@ -113,7 +113,7 @@ const LogInPage = () => {
         </div>
       </div>
 
-      <AuthImagePattern title={"Bentornato! "}/>
+      <AuthImagePattern title={"Bentornato! "} />
     </div>
   );
 };

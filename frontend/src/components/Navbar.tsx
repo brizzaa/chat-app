@@ -23,15 +23,15 @@ export const Navbar = () => {
               className={`btn btn-sm gap-2 transition-colors`}
             >
               <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline">Settings</span>
+              <span className="hidden sm:inline">Impostazioni</span>
             </Link>
             {authUser && (
               <>
                 <Link to={"/profile"} className="btn btn-sm gap-2">
                   <User className="size-5" />
-                  <span className="hidden sm:inline">Profile</span>
+                  <span className="hidden sm:inline">Profilo</span>
                 </Link>
-                <button onClick={logout} className="flex gap-2 items-center">
+                <button onClick={logout} className="flex gap-2 items-center ml-2">
                   <LogOut className="size-5" />
                   <span className="hidden sm:inline">Logout</span>
                 </button>

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
+import { href } from "react-router-dom";
 
 // struttura dello stato
 
@@ -67,6 +68,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       await axiosInstance.post("/auth/logout");
       set({ authUser: null });
       toast.success("Logout effettuato");
+      href("/");
     } catch (error) {
       set({ authUser: null });
       toast.error("Errore durante il logout");
