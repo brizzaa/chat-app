@@ -12,6 +12,7 @@ interface ChatStore {
   getUsers: () => Promise<void>;
   getMessages: (userId: string) => Promise<void>;
   setSelectedUser: (selectedUser: any) => void;
+  sendMessage: (data: any) => Promise<void>;
 }
 
 export const useChatStore = create<ChatStore>((set, get) => ({
