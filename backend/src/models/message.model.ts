@@ -2,8 +2,13 @@ import mongoose from "mongoose";
 
 const messageScherma = new mongoose.Schema(
   {
-    sender: {
-      type: mongoose.Schema.Types.ObjectId,
+    senderId: {
+      type: Object,
+      ref: "User",
+      required: true,
+    },
+    receiverId: {
+      type: Object,
       ref: "User",
       required: true,
     },

@@ -46,6 +46,7 @@ export const sendMessage = async (req: Request, res: Response) => {
     let imageUrl;
     if (image) {
       const uploadResponse = await cloudinary.uploader.upload(image);
+      imageUrl = uploadResponse.secure_url;
     }
 
     const newMessage = new Message({
@@ -57,5 +58,10 @@ export const sendMessage = async (req: Request, res: Response) => {
     await newMessage.save();
     // todo : realtime => socket.io
     res.status(201).json(newMessage);
-  } catch (error) {}
+  } catch (error) {
+    console.error("Errore nell'invio del messaggio:", error);
+    res.status(500).json({
+      message: "Errore server durante l'invio del messaggio",
+    });
+  }
 };

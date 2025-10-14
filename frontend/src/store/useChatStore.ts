@@ -47,14 +47,21 @@ export const useChatStore = create<ChatStore>((set, get) => ({
 
   sendMessage: async (data: any) => {
     const { selectedUser, messages } = get();
+    if (!selectedUser) {
+      toast.error("Seleziona un utente per inviare un messaggio");
+      return;
+    }
     try {
       const res = await axiosInstance.post(
-        `/messages/send/${selectedUser._id}`,
+        `/message/send/${selectedUser._id}`,
         data
       );
       set({ messages: [...messages, res.data] });
-    } catch (error) {
-      toast.error("Errore durante l'invio del messaggio");
+    } catch (error: any) {
+      console.error("Errore invio messaggio:", error);
+      toast.error(
+        error.response?.data?.message || "Errore durante l'invio del messaggio"
+      );
     }
   },
 

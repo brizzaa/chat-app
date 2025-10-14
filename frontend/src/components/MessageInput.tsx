@@ -33,22 +33,21 @@ export const MessageInput = () => {
     }
   };
 
-  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSendMessage = async (e: any) => {
     e.preventDefault();
-    if (text.trim() || imagePreview) {
-      try {
-        await sendMessage({
-          text: text.trim(),
-          image: imagePreview,
-        });
-        setText("");
-        setImagePreview(null);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-      } catch (error) {
-        toast.error("Errore durante l'invio del messaggio");
+    if (!text.trim() && !imagePreview) return;
+    try {
+      await sendMessage({
+        text: text.trim(),
+        image: imagePreview,
+      });
+      setText("");
+      setImagePreview(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
       }
+    } catch (error) {
+      toast.error("Errore durante l'invio del messaggio" + error);
     }
   };
 
