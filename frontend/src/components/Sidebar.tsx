@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { SidebarSkeletonComponent } from "./SidebarSkeletonComponent";
 import { Users } from "lucide-react";
+import useAuthStore from "../store/useAuthStore";
 
 export const Sidebar = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } =
     useChatStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
-  const onlineUsers: string[] = [];
+  const { onlineUsers } = useAuthStore();
   useEffect(() => {
     getUsers();
   }, []);
@@ -38,7 +39,7 @@ export const Sidebar = () => {
             <span className="text-sm">Show online only</span>
           </label>
           <span className="text-xs text-zinc-500">
-            ({onlineUsers.length - 1} online)
+            ({onlineUsers.length} online)
           </span>
         </div>
       </div>
@@ -61,7 +62,7 @@ export const Sidebar = () => {
             <div className="relative mx-auto lg:mx-0">
               <img
                 src={user.profilePic || "/avatar.png"}
-                alt={user.name}
+                alt={user.fullName}
                 className="size-12 object-cover rounded-full"
               />
               {onlineUsers.includes(user._id) && (

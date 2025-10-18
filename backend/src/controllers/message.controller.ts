@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import User from "../models/user.model";
 import Message from "../models/message.model";
 import cloudinary from "../lib/cloudinary";
+import { getReceiverSocketId } from "../lib/socket";
+import { io } from "../lib/socket";
 
 export const getUsersforSidebar = async (req: Request, res: Response) => {
   try {
@@ -56,7 +58,12 @@ export const sendMessage = async (req: Request, res: Response) => {
       image: imageUrl,
     });
     await newMessage.save();
-    // todo : realtime => socket.io
+
+    const receiverSocketId = getReceiverSocketId(receiverId as any);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
     res.status(201).json(newMessage);
   } catch (error) {
     console.error("Errore nell'invio del messaggio:", error);
