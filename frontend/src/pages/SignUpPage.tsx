@@ -46,7 +46,11 @@ export const SignUpPage = () => {
     e.preventDefault();
     const isValid = validateForm();
     if (isValid) {
-      signup(formData);
+      signup({
+        fullName: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+      });
     }
   };
   return (

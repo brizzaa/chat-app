@@ -1,8 +1,8 @@
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import { generateToken } from "../lib/utils";
-import cloudinary from "../lib/cloudinary";
+import { generateToken } from "../lib/utils.js";
+import cloudinary from "../lib/cloudinary.js";
 
 // handling signup
 export const signup = async (req: Request, res: Response) => {
@@ -89,9 +89,15 @@ export const login = async (req: Request, res: Response) => {
 };
 export const logout = (req: Request, res: Response) => {
   try {
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("jwt", "", {
       maxAge: 0,
+      httpOnly: true,
+      sameSite: isProduction ? "none" : "lax",
+      secure: isProduction,
     });
+
     res.status(200).json({
       message: "utente disconnesso",
     });

@@ -8,11 +8,15 @@ export const generateToken = (userId: any, res: any) => {
     expiresIn: "7d",
   });
 
+  const isCrossDomain =
+    process.env.FRONTEND_URL &&
+    process.env.FRONTEND_URL !== "http://localhost:5173";
+
   res.cookie("jwt", token, {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 giorni in ms
-    httpOnly: true, // cross side script  prevention
-    sameSite: "strict", // prevenire attacchi CSRF
-    secure: process.env.NODE_ENV !== "development", // solo su https
+    httpOnly: true, // cross side script prevention
+    sameSite: isCrossDomain ? "none" : "lax",
+    secure: isCrossDomain,
   });
   return token;
 };

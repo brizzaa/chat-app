@@ -1,8 +1,8 @@
-import User from "../models/user.model";
-import Message from "../models/message.model";
-import cloudinary from "../lib/cloudinary";
-import { getReceiverSocketId } from "../lib/socket";
-import { io } from "../lib/socket";
+import User from "../models/user.model.js";
+import Message from "../models/message.model.js";
+import cloudinary from "../lib/cloudinary.js";
+import { getReceiverSocketId } from "../lib/socket.js";
+import { io } from "../lib/socket.js";
 export const getUsersforSidebar = async (req, res) => {
     try {
         const loggedInUserId = req.user?._id;

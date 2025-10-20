@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const ProfilePage = () => {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
-  const [selectedImg, setSelectedImg] = useState(null);
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const handleImageUpload = async (e: any) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -17,7 +17,7 @@ const ProfilePage = () => {
     reader.onload = async () => {
       const base64Image = reader.result;
       setSelectedImg(base64Image as any);
-      await updateProfile({ profilePic: base64Image });
+      await updateProfile({ profilePic: base64Image as string });
     };
   };
   return (

@@ -3,11 +3,11 @@ import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
 import { io, Socket } from "socket.io-client";
 
-const BASE_URL = "http://localhost:5001";
+const BASE_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5001";
 
 // tipi per i dati di registrazione/login
 interface AuthData {
-  username: string;
+  fullName: string;
   email: string;
   password: string;
 }
@@ -18,9 +18,9 @@ interface LoginData {
 }
 
 interface UpdateProfileData {
-  username?: string;
+  fullName?: string;
   email?: string;
-  profilePicture?: string;
+  profilePic?: string;
 }
 
 // struttura dello stato
