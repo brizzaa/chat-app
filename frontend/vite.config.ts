@@ -10,4 +10,17 @@ export default defineConfig({
     assetsDir: "assets",
   },
   base: "/",
+  server: {
+    port: 5173, // Porta corretta per Vite
+    open: true,
+    // Configurazione per SPA
+    middlewareMode: false,
+    fs: {
+      strict: false,
+    },
+  },
+  preview: {
+    port: 5173, // Stessa porta per preview
+    open: true,
+  },
 });
