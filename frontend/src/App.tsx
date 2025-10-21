@@ -15,13 +15,10 @@ const App = () => {
     const savedTheme = localStorage.getItem("theme") || "light";
     document.documentElement.setAttribute("data-theme", savedTheme);
   }, []);
-  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-  console.log({ onlineUsers });
-  console.log(authUser);
-
   if (isCheckingAuth)
     return (
       <div className="flex justify-center items-center h-screen">

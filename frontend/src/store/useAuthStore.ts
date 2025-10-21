@@ -98,9 +98,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ authUser: null });
       toast.success("Logout effettuato");
       get().disconnectSocket();
-      window.location.href = "/";
-    } catch (error) {
+    } catch (error: any) {
       set({ authUser: null });
+      get().disconnectSocket();
+      if (error.response?.status === 401) {
+        toast.success("Logout effettuato");
+      }
       toast.error("Errore durante il logout");
     }
   },

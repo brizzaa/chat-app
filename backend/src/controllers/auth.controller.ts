@@ -90,12 +90,15 @@ export const login = async (req: Request, res: Response) => {
 export const logout = (req: Request, res: Response) => {
   try {
     const isProduction = process.env.NODE_ENV === "production";
+    const isCrossDomain =
+      process.env.FRONTEND_URL &&
+      process.env.FRONTEND_URL !== "http://localhost:5173";
 
-    res.cookie("jwt", "", {
-      maxAge: 0,
+    res.clearCookie("jwt", {
       httpOnly: true,
-      sameSite: isProduction ? "none" : "lax",
-      secure: isProduction,
+      sameSite: isCrossDomain ? "none" : "lax",
+      secure: isProduction || isCrossDomain ? true : false,
+      domain: isProduction ? undefined : "localhost",
     });
 
     res.status(200).json({
