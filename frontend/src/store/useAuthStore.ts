@@ -60,6 +60,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       get().connectSocket();
     } catch (error) {
       set({ authUser: null, isCheckingAuth: false });
+      document.cookie =
+        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie =
+        "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
     }
   },
   signup: async (data: AuthData) => {

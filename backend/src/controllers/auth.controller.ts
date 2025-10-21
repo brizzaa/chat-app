@@ -99,6 +99,13 @@ export const logout = (req: Request, res: Response) => {
       sameSite: isCrossDomain ? "none" : "lax",
       secure: isProduction || isCrossDomain ? true : false,
       domain: isProduction ? undefined : "localhost",
+      path: "/",
+    });
+    res.clearCookie("jwt", {
+      httpOnly: true,
+      sameSite: isCrossDomain ? "none" : "lax",
+      secure: isProduction || isCrossDomain ? true : false,
+      path: "/",
     });
 
     res.status(200).json({

@@ -11,16 +11,16 @@ export default defineConfig({
   },
   base: "/",
   server: {
-    port: 5173, // Porta corretta per Vite
+    port: 5173,
     open: true,
-    // Configurazione per SPA
+
     middlewareMode: false,
     fs: {
       strict: false,
     },
   },
   preview: {
-    port: 5173, // Stessa porta per preview
+    port: 5173,
     open: true,
   },
 });
