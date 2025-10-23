@@ -109,18 +109,7 @@ L'applicazione segue un'architettura full-stack moderna:
 - Backend: API RESTful con WebSocket per real-time
 - Database: MongoDB con Mongoose ODM
 - Real-time: Socket.io per comunicazione bidirezionale
-- Storage: Cloudinary per gestione immagini
-- Security: JWT + bcrypt per autenticazione sicura
-
-## Performance e Ottimizzazioni
-
-- Code splitting con Vite
-- Lazy loading dei componenti
-- Memoization con React.memo
-- Efficient re-renders con Zustand
-- Optimized images con Cloudinary
-- Socket connection pooling
-
+  
 ---
 
 sviluppato per dimostrare competenze in sviluppo full-stack moderno con focus su real-time
