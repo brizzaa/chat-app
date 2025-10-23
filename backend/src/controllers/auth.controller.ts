@@ -94,6 +94,7 @@ export const logout = (req: Request, res: Response) => {
       process.env.FRONTEND_URL &&
       process.env.FRONTEND_URL !== "http://localhost:5173";
 
+    // sia con che senza domain
     res.clearCookie("jwt", {
       httpOnly: true,
       sameSite: isCrossDomain ? "none" : "lax",
